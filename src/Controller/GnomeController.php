@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use App\Factory\GnomeDTOFactory;
@@ -63,17 +64,10 @@ class GnomeController extends Controller
      * @Route("/api/gnome/read/{id}", name="gnome_read")
      * @Method("GET")
      */
-    public function read(GnomeRepository $gnomeRepository)
+    public function read(Gnome $gnome, SerializerInterface $serializer)
     {
-        $gnomeEntity = $gnomeRepository->find(1);
-
-        $data = [
-            'name' => $gnomeEntity->getName(),
-            'strength' => $gnomeEntity->getStrength(),
-            'age' => $gnomeEntity->getAge(),
-        ];
-
-        return new JsonResponse($data);
+        $gnomeJson = json_decode($serializer->serialize($gnome, 'json'));
+        return new JsonResponse($gnomeJson);
     }
 
     /**

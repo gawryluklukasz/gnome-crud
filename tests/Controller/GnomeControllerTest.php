@@ -75,6 +75,23 @@ class GnomeControllerTest extends WebTestCase
     }
 
     /**
+     * Test read gnome.
+     * This test should be run after update and before delete.
+     */
+    public function testRead()
+    {
+        $gnome = $this->getLastGnome();
+
+        $client = static::createClient();
+        $client->request('GET', '/api/gnome/read/' . $gnome->getId());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $content = json_decode($client->getResponse()->getContent());
+        $name =  mb_substr($content->name, 0, 15);//should start dataAfterUpdate
+        $this->assertEquals('dataAfterUpdate', $name);
+    }
+
+    /**
      * Test delete method
      */
     public function testDelete()
@@ -84,16 +101,6 @@ class GnomeControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('DELETE', '/api/gnome/delete/' . $gnome->getId(), [], [], ['CONTENT_TYPE' => 'application/json']);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * Test read gnome
-     */
-    public function testRead()
-    {
-        $client = static::createClient();
-        $client->request('GET', '/api/gnome/read/1');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
