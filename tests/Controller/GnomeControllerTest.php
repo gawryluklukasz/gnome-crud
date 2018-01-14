@@ -75,6 +75,19 @@ class GnomeControllerTest extends WebTestCase
     }
 
     /**
+     * Test delete method
+     */
+    public function testDelete()
+    {
+        $gnome = $this->getLastGnome();
+
+        $client = static::createClient();
+        $client->request('DELETE', '/api/gnome/delete/' . $gnome->getId(), [], [], ['CONTENT_TYPE' => 'application/json']);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    /**
      * Test read gnome
      */
     public function testRead()

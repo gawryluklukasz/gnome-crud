@@ -27,4 +27,13 @@ class GnomeRepository extends ServiceEntityRepository
         $this->_em->persist($gnome);
         $this->_em->flush();
     }
+
+    /**
+     * @param Gnome $gnome
+     */
+    public function delete(Gnome $gnome)
+    {
+        $this->_em->remove($gnome);
+        $this->_em->flush();
+    }
 }
