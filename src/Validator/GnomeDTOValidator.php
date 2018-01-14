@@ -75,7 +75,7 @@ final class GnomeDTOValidator implements GnomeValidatorInterface
 
         if ($age < 0) {
             $this->validResponse->setValid(false);
-            $this->validResponse->addReason(GnomeValidatorReason::AgehToLow);
+            $this->validResponse->addReason(GnomeValidatorReason::AgeToLow);
         } elseif ($age > 100) {
             $this->validResponse->setValid(false);
             $this->validResponse->addReason(GnomeValidatorReason::AgeToHigh);
