@@ -12,6 +12,7 @@ use App\Repository\GnomeRepository;
 use App\Validator\GnomeDTOValidator;
 use App\Service\SaveGnomeService;
 use App\DTO\GnomeDTO;
+use App\Entity\Gnome;
 
 class GnomeController extends Controller
 {
@@ -48,12 +49,14 @@ class GnomeController extends Controller
     }
 
     /**
-     * @Route("/api/gnome/update/{id}", name="gnome_delete")
+     * @Route("/api/gnome/delete/{id}", name="gnome_delete")
      * @Method("DELETE")
      */
-    public function delete()
+    public function delete(Gnome $gnome, GnomeRepository $gnomeRepository)
     {
-        
+        $gnomeRepository->delete($gnome);
+
+        return new JsonResponse(null, 200);
     }
 
     /**
