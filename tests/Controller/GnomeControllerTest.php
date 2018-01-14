@@ -3,6 +3,7 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Enum\GnomeValidatorReason;
 use App\Entity\Gnome;
 
@@ -53,9 +54,11 @@ class GnomeControllerTest extends WebTestCase
      */
     public function testCreate()
     {
+        $photo = new UploadedFile(__DIR__ . '/test.png', 'test.jpg', 'image/png');
+        
         $client = static::createClient();
         $data = ['name' => 'test' . time(), 'strength' => rand(0, 100), 'age' => rand(0, 100)];
-        $client->request('POST', '/api/gnome/create', $data, [], ['CONTENT_TYPE' => 'application/json']);
+        $client->request('POST', '/api/gnome/create', $data, ['photo' => $photo], ['CONTENT_TYPE' => 'application/json']);
 
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }

@@ -94,4 +94,9 @@ class GnomeController extends Controller
 
         return new JsonResponse(null, $responseCode);
     }
+
+    private function uploadFile(Request $request)
+    {
+        
+    }
 }
