@@ -2,7 +2,6 @@
 
 namespace App\Factory;
 
-use App\Exception\BadTypeException;
 use App\Repository\GnomeRepository;
 use App\Model\GnomeEntityFactoryInterface;
 use App\Entity\Gnome;
