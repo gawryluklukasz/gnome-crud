@@ -12,9 +12,9 @@ use App\Repository\GnomeRepository;
 final class SaveGnomeService
 {
     /**
-     * @var CreateGnomeEntity
+     * @var GnomeEntityFactory
      */
-    private $createGnomeEntity;
+    private $gnomeEntityFactory;
 
     /**
      * @var GnomeRepository
@@ -29,7 +29,7 @@ final class SaveGnomeService
         GnomeEntityFactory $gnomeEntityFactory,
         GnomeRepository $gnomeRepository
     ) {
-        $this->createGnomeEntity = $gnomeEntityFactory;
+        $this->gnomeEntityFactory = $gnomeEntityFactory;
         $this->gnomeRepository = $gnomeRepository;
     }
 
@@ -38,7 +38,7 @@ final class SaveGnomeService
      */
     public function save(GnomeDTO $gnomeDTO)
     {
-        $gnome = $this->createGnomeEntity->create($gnomeDTO);
+        $gnome = $this->gnomeEntityFactory->create($gnomeDTO);
         $this->gnomeRepository->save($gnome);
     }
 }
